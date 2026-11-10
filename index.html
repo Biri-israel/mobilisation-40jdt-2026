@@ -290,7 +290,6 @@ h3{font-size:17px;font-weight:800}
     <div id="blk-fields" hidden>
       <div class="fld"><label for="s-nom">Nom</label><input id="s-nom" type="text" autocomplete="name" placeholder="Prénom et nom"><div class="err" id="e-nom" role="alert" hidden></div></div>
       <div class="fld" id="fld-tel" hidden><label for="s-tel">Téléphone</label><input id="s-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="081 234 5678"><div class="err" id="e-tel" role="alert" hidden></div></div>
-      <div class="fld" id="fld-quartier" hidden><label for="s-quartier">Quartier de départ</label><input id="s-quartier" type="text" placeholder="Ex. Bandal, Limete, Ngaliema"><div class="err" id="e-quartier" role="alert" hidden></div></div>
     </div>
 
     <button class="btn" type="submit" id="s-send">Envoyer ma réponse</button>
@@ -495,7 +494,6 @@ function updateSurvey(){
   $('#fld-typeother').hidden=!(d==='oui'&&v==='oui'&&val('type')==='autre');
   $('#blk-fields').hidden=!d;
   $('#fld-tel').hidden=d!=='oui';
-  $('#fld-quartier').hidden=d!=='oui';
   syncChoices();
 }
 function renderSeats(){
@@ -520,7 +518,6 @@ function surveyMessage(s){
   if(s.dispo==='oui'){
     if(s.veh==='oui'){L.push('Véhicule : '+vehLabel(s.type,s.other)+', '+s.seats+' '+plural(s.seats,'place libre','places libres'));L.push('Carburant par l’église : '+(s.fuel==='oui'?'Oui':'Non'));}
     else{L.push('Véhicule : non, je cherche une place');}
-    L.push('Quartier de départ : '+s.quartier);
     L.push('Téléphone : '+s.tel);
   }
   return L.join('\n');
@@ -530,11 +527,11 @@ fs.addEventListener('submit',function(e){
   e.preventDefault();
   if(busy){return;}
   var d=val('dispo'),v=val('veh'),t=val('type');
-  var nom=$('#s-nom'),tel=$('#s-tel'),qt=$('#s-quartier');
+  var nom=$('#s-nom'),tel=$('#s-tel');
   var first=null;
   ['e-dispo','e-veh','e-type','e-typeother','e-fuel'].forEach(function(i){clearErr(i);});
   var oth=$('#s-typeother');oth.classList.remove('bad');var fuel=val('fuel');
-  clearErr('e-nom',nom);clearErr('e-tel',tel);clearErr('e-quartier',qt);
+  clearErr('e-nom',nom);clearErr('e-tel',tel);
   if(!d){
     showErr('e-dispo','Choisis Oui ou Non.');first=$('#g-dispo');
   }else{
@@ -544,16 +541,14 @@ fs.addEventListener('submit',function(e){
     if(d==='oui'&&v==='oui'&&!fuel){showErr('e-fuel','Dis-nous si tu souhaites que l’église mette le carburant.');first=first||$('#blk-fuel');}
     if(nom.value.trim().length<2){showErr('e-nom','Indique ton nom.',nom);first=first||nom;}
     if(d==='oui'&&!phoneOk(tel.value)){showErr('e-tel','Numéro incomplet : il faut 10 chiffres, ex. 081 234 5678.',tel);first=first||tel;}
-    if(d==='oui'&&qt.value.trim().length<2){showErr('e-quartier','Indique ton quartier de départ.',qt);first=first||qt;}
   }
   if(first){first.scrollIntoView({block:'center'});if(first.tagName==='INPUT'){first.focus();}return;}
 
-  var s={dispo:d,veh:v,type:t,other:oth.value.trim(),fuel:fuel,seats:seats,nom:nom.value.trim(),tel:phoneShow(tel.value)||tel.value.trim(),quartier:qt.value.trim()};
+  var s={dispo:d,veh:v,type:t,other:oth.value.trim(),fuel:fuel,seats:seats,nom:nom.value.trim(),tel:phoneShow(tel.value)||tel.value.trim()};
   var rows=[['Disponible dimanche',d==='oui'?'Oui':'Non']];
   if(d==='oui'){
     rows.push(['Véhicule',v==='oui'?vehLabel(t,s.other):'Je cherche une place']);
     if(v==='oui'){rows.push(['Places libres',String(s.seats)]);rows.push(['Carburant par l’église',fuel==='oui'?'Oui':'Non']);}
-    rows.push(['Départ',s.quartier]);
     rows.push(['Téléphone',s.tel]);
   }
   var msg=surveyMessage(s);
@@ -561,8 +556,7 @@ fs.addEventListener('submit',function(e){
     veh:d!=='oui'?'':(v==='oui'?'Oui':'Non, cherche une place'),
     type:(d==='oui'&&v==='oui')?vehLabel(t,s.other):'',
     places:(d==='oui'&&v==='oui')?String(s.seats):'',
-    carburant:(d==='oui'&&v==='oui')?(fuel==='oui'?'Oui':'Non'):'',
-    quartier:d==='oui'?s.quartier:''};
+    carburant:(d==='oui'&&v==='oui')?(fuel==='oui'?'Oui':'Non'):''};
   submitFlow({key:'survey',btn:$('#s-send'),params:params,msg:msg,onOk:function(){
     $('#d-nom').textContent=s.nom;
     fillRecap($('#d-recap'),rows);
