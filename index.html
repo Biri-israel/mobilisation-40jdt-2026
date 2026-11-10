@@ -187,6 +187,26 @@ h3{font-size:17px;font-weight:800}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 .poster{margin:18px 0 0}.poster img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--edge)}
 .poster .dl{margin-top:10px}
+.btn[disabled]{opacity:.7;cursor:progress}
+.fb{margin-top:14px}.fb .err{margin-top:0;margin-bottom:10px}
+.sws{display:flex;flex-wrap:wrap;margin:0 -4px}
+.sw{width:48px;height:48px;flex:none;border:0;background:none;padding:0;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sw .chip{position:relative;width:34px;height:34px;border-radius:50%;background:var(--c);border:2px solid rgba(61,6,18,.35);display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--ink)}
+.sw.sel .chip{outline:3px solid var(--flame);outline-offset:2px}
+.sw.sel .chip::after{content:"\2713";color:#fff;font-size:17px;font-weight:800;text-shadow:0 0 3px rgba(0,0,0,.7)}
+.sw.lt.sel .chip::after{color:#3D0612;text-shadow:none}
+.sw.out{cursor:not-allowed}
+.sw.out .chip{opacity:.4}
+.sw.out .chip::before{content:"";position:absolute;left:-5px;right:-5px;top:50%;height:3px;margin-top:-1px;background:#fff;box-shadow:0 0 0 1px #3D0612;transform:rotate(-45deg);border-radius:2px}
+.sw:focus-visible .chip{outline:3px solid var(--gold);outline-offset:2px}
+.sw.other{width:auto;padding:0 4px}
+.sw.other .chip{width:auto;padding:0 14px;border:2px dashed var(--choice-edge);border-radius:17px;background:transparent;color:var(--text)}
+.sw.other.sel .chip{background:var(--flame);border:2px solid var(--flame);color:var(--ink)}
+.sw.other.sel .chip::after{content:none}
+.oc{width:100%;height:48px;margin-top:6px;padding:0 14px;border:1.5px solid var(--field-edge);border-radius:12px;background:var(--field);color:var(--field-text);font-size:16px}
+.oc::placeholder{color:var(--field-ph);opacity:1}
+.oc:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.size.out{opacity:.4;text-decoration:line-through;cursor:not-allowed}
 </style>
 
 </head>
@@ -205,7 +225,7 @@ h3{font-size:17px;font-weight:800}
       <p class="verse">« La puissance de Dieu en action par le sang et le témoignage de Christ&nbsp;»</p>
       <p class="ref">Apocalypse 12:11</p>
     </div>
-    <div class="mob"><span>Mobilisation</span><p>Carnaval motorisé · dimanche 15/11</p><p class="mob2">Placardage des affiches · samedi 14/11, 14h</p></div>
+    <div class="mob"><span>Mobilisation</span><p>Carnaval motorisé · dimanche 15/11</p><p class="mob2">Départ commun à 11h30 · Cité de Transfiguration</p><p class="mob2">Placardage des affiches · samedi 14/11, 14h</p></div>
   </div>
 </header>
 <div class="strip"><div class="in">Répondre avant vendredi 13/11, 18h (carnaval et affiches)</div></div>
@@ -215,6 +235,7 @@ h3{font-size:17px;font-weight:800}
 <div class="card" id="c-survey">
   <div class="kick"><span class="num">1</span>Sondage</div>
   <h2>Carnaval du 15/11</h2>
+  <p class="note"><b>Départ commun à 11h30</b> de la Cité de Transfiguration, dimanche 15/11.</p>
 
   <form id="f-survey" novalidate>
     <fieldset class="grp" id="g-dispo">
@@ -273,15 +294,16 @@ h3{font-size:17px;font-weight:800}
     </div>
 
     <button class="btn" type="submit" id="s-send">Envoyer ma réponse</button>
+    <div class="fb" id="fb-survey" hidden><div class="err" role="alert">L’envoi n’a pas abouti (connexion ?). Appuie de nouveau sur « Envoyer ma réponse », ou envoie-le par WhatsApp :</div><a class="btn2" id="fbwa-survey" target="_blank" rel="noopener">Envoyer à Israël par WhatsApp</a><a class="lnk" id="fbwa-survey2" target="_blank" rel="noopener">Ou envoyer à Alistair Minga</a></div>
   </form>
 
   <div id="done-survey" hidden>
-    <div class="okrow"><span class="okc" aria-hidden="true">✓</span><p class="okt">Merci, <span id="d-nom"></span>. Dernière étape : envoie ta réponse à la mobilisation par WhatsApp.</p></div>
+    <div class="okrow"><span class="okc" aria-hidden="true">✓</span><p class="okt">Merci, <span id="d-nom"></span>. Ta réponse est enregistrée.</p></div>
     <div class="recap" id="d-recap"></div>
-    <p class="mut">Ta réponse est comptée une fois le message envoyé.</p>
-    <a class="btn" id="wa-survey" target="_blank" rel="noopener">Envoyer à Israël par WhatsApp</a>
-    <a class="lnk" id="wa-survey2" target="_blank" rel="noopener">Ou envoyer à Alistair Minga</a>
-    <button class="btn2" type="button" id="s-edit">Modifier ma réponse</button>
+    <p class="mut">Si tu corriges et renvoies, c’est ta dernière réponse qui compte. Prévenir la mobilisation par WhatsApp est facultatif.</p>
+    <a class="btn2" id="wa-survey" target="_blank" rel="noopener">Prévenir Israël par WhatsApp</a>
+    <a class="lnk" id="wa-survey2" target="_blank" rel="noopener">Ou prévenir Alistair Minga</a>
+    <button class="btn2" type="button" id="s-edit">Corriger et renvoyer</button>
   </div>
 </div>
 </div></section>
@@ -290,13 +312,14 @@ h3{font-size:17px;font-weight:800}
 <div class="card" id="c-order">
   <div class="kick"><span class="num">2</span>Précommandes</div>
   <h2>Articles de l'activité</h2>
-  <p class="lead">Choisis ta taille, puis la quantité. Paiement à la remise.</p>
+  <p class="lead">Choisis la couleur, la taille, puis la quantité. Paiement à la remise.</p>
   <p class="note"><b>Chaque article acheté est une façon concrète de soutenir l'activité.</b> Merci pour ta générosité.</p>
 
   <form id="f-order" novalidate>
     <div class="items" id="items"></div>
     <div class="fld"><label for="o-nom">Nom</label><input id="o-nom" type="text" autocomplete="name" placeholder="Prénom et nom"><div class="err" id="e-onom" role="alert" hidden></div></div>
     <div class="fld"><label for="o-tel">Téléphone</label><input id="o-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="081 234 5678"><div class="err" id="e-otel" role="alert" hidden></div></div>
+    <div class="fb" id="fb-order" hidden><div class="err" role="alert">L’envoi n’a pas abouti (connexion ?). Appuie de nouveau sur « Envoyer ma commande », ou envoie-le par WhatsApp :</div><a class="btn2" id="fbwa-order" target="_blank" rel="noopener">Envoyer à Israël par WhatsApp</a><a class="lnk" id="fbwa-order2" target="_blank" rel="noopener">Ou envoyer à Alistair Minga</a></div>
     <div class="bar">
       <div class="brow"><div class="bl"><b id="tcount">Total · 0 article</b><span>Paiement à la remise</span></div><div class="bt" id="ttotal">0 $</div></div>
       <div class="err" id="e-items" role="alert" hidden></div>
@@ -305,12 +328,12 @@ h3{font-size:17px;font-weight:800}
   </form>
 
   <div id="done-order" hidden>
-    <div class="okrow"><span class="okc" aria-hidden="true">✓</span><p class="okt">Merci, <span id="d-onom"></span>. Dernière étape : envoie ta commande à la mobilisation par WhatsApp.</p></div>
+    <div class="okrow"><span class="okc" aria-hidden="true">✓</span><p class="okt">Merci, <span id="d-onom"></span>. Ta commande est enregistrée.</p></div>
     <div class="recap" id="d-orecap"></div>
-    <p class="mut">Ta commande est enregistrée une fois le message envoyé. Tu paies à la remise.</p>
-    <a class="btn" id="wa-order" target="_blank" rel="noopener">Envoyer à Israël par WhatsApp</a>
-    <a class="lnk" id="wa-order2" target="_blank" rel="noopener">Ou envoyer à Alistair Minga</a>
-    <button class="btn2" type="button" id="o-edit">Modifier ma commande</button>
+    <p class="mut">Tu paies à la remise. Si tu corriges et renvoies, c’est ta dernière commande qui compte. Prévenir la mobilisation par WhatsApp est facultatif.</p>
+    <a class="btn2" id="wa-order" target="_blank" rel="noopener">Prévenir Israël par WhatsApp</a>
+    <a class="lnk" id="wa-order2" target="_blank" rel="noopener">Ou prévenir Alistair Minga</a>
+    <button class="btn2" type="button" id="o-edit">Corriger et renvoyer</button>
   </div>
 </div>
 </div></section>
@@ -335,15 +358,16 @@ h3{font-size:17px;font-weight:800}
       <div class="fld"><label for="p-tel">Téléphone</label><input id="p-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="081 234 5678"><div class="err" id="e-ptel" role="alert" hidden></div></div>
       <div class="fld"><label for="p-zone">Zone où tu peux placarder <span class="sub" style="display:inline;margin:0">(facultatif)</span></label><input id="p-zone" type="text" placeholder="Ex. Gombe, Lingwala, Kintambo"></div>
     </div>
-    <button class="btn" type="submit">Je m'inscris</button>
+    <button class="btn" type="submit" id="p-send">Je m'inscris</button>
+    <div class="fb" id="fb-poster" hidden><div class="err" role="alert">L’envoi n’a pas abouti (connexion ?). Appuie de nouveau sur « Je m'inscris », ou envoie-le par WhatsApp :</div><a class="btn2" id="fbwa-poster" target="_blank" rel="noopener">Envoyer à Israël par WhatsApp</a><a class="lnk" id="fbwa-poster2" target="_blank" rel="noopener">Ou envoyer à Alistair Minga</a></div>
   </form>
   <div id="done-poster" hidden>
-    <div class="okrow"><span class="okc" aria-hidden="true">✓</span><p class="okt">Merci, <span id="d-pnom"></span>. Dernière étape : envoie ton inscription à la mobilisation par WhatsApp.</p></div>
+    <div class="okrow"><span class="okc" aria-hidden="true">✓</span><p class="okt">Merci, <span id="d-pnom"></span>. Ton inscription est enregistrée.</p></div>
     <div class="recap" id="d-precap"></div>
-    <p class="mut">Ton inscription est comptée une fois le message envoyé.</p>
-    <a class="btn" id="wa-poster" target="_blank" rel="noopener">Envoyer à Israël par WhatsApp</a>
-    <a class="lnk" id="wa-poster2" target="_blank" rel="noopener">Ou envoyer à Alistair Minga</a>
-    <button class="btn2" type="button" id="p-edit">Modifier ma réponse</button>
+    <p class="mut">Si tu corriges et renvoies, c’est ta dernière réponse qui compte. Prévenir la mobilisation par WhatsApp est facultatif.</p>
+    <a class="btn2" id="wa-poster" target="_blank" rel="noopener">Prévenir Israël par WhatsApp</a>
+    <a class="lnk" id="wa-poster2" target="_blank" rel="noopener">Ou prévenir Alistair Minga</a>
+    <button class="btn2" type="button" id="p-edit">Corriger et renvoyer</button>
   </div>
 </div>
 </div></section>
@@ -377,19 +401,32 @@ h3{font-size:17px;font-weight:800}
 <script>
 (function(){
 'use strict';
+/* ===== RÉGLAGES ===== */
+var ENDPOINT='https://script.google.com/macros/s/AKfycbw3nvzgQMceyVhw7bw_kIxNEyxbuFe5NqQaKRZ8B8_6TrcVkXczjj2Pe0lmygkLcUT2/exec';
 var CONTACTS=[{name:'Israël Salumu',first:'Israël',tel:'+243 826 259 538',wa:'243826259538'},{name:'Alistair Minga',first:'Alistair',tel:'+243 817 892 936',wa:'243817892936'}];
 var SIZES=['S','M','L','XL','XXL'];
 var ARTICLES=[
   {id:'tshirt',name:'T-shirt',price:10,on:true},
-  {id:'polo',name:'Polo',price:15,on:true},
+  {id:'polo',name:'T-shirt avec col',price:15,on:true},
   {id:'bracelet',name:'Bracelet',price:0,on:false}
 ];
+var COLORS=[
+  {n:'Rose fuchsia',h:'#E0238B'},{n:'Beige sable',h:'#EBCB98',lt:1},{n:'Pêche',h:'#F6AE8C',lt:1},
+  {n:'Bleu ciel',h:'#5FA3E6'},{n:'Rouge',h:'#DD1F2B'},{n:'Blanc',h:'#FFFFFF',lt:1},
+  {n:'Bleu roi',h:'#2A4FD6'},{n:'Gris clair',h:'#D6D6D2',lt:1},{n:'Camel',h:'#B38A55'},{n:'Noir',h:'#1A1A1A'}
+];
+/* Stock de secours (utilisé seulement si la feuille « Stock » ne répond pas).
+   Exemple : {article:'T-shirt', couleur:'Rouge', taille:''} = Rouge épuisé en T-shirt (taille vide = toutes les tailles).
+   article vide = tous les articles. */
+var STOCK_DEFAUT=[];
+var stock=STOCK_DEFAUT;
 var SEATS={voiture:3,moto:1,bus:10,autre:3};
 var VEH={voiture:'Voiture',moto:'Moto',bus:'Minibus ou bus',autre:'Autre'};
 function vehLabel(t,o){return t==='autre'?('Autre : '+o):VEH[t];}
 var MAXQ=20,MAXS=60;
 var seats=3;
-var qty={},sel={};
+var lines={},sel={};
+var busy=false;
 
 function $(s,r){return (r||document).querySelector(s);}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
@@ -399,6 +436,7 @@ function digits(s){return String(s||'').replace(/\D/g,'');}
 function phoneOk(s){var d=digits(s);return (d.length===10&&d.charAt(0)==='0')||(d.length===12&&d.indexOf('243')===0);}
 function phoneShow(s){var d=digits(s);if(d.length===12&&d.indexOf('243')===0){d='0'+d.slice(3);}return d.replace(/^(\d{3})(\d{3})(\d{4})$/,'$1 $2 $3');}
 function plural(n,a,b){return n>1?b:a;}
+function nm(s){return String(s==null?'':s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();}
 function waUrl(i,msg){return 'https://wa.me/'+CONTACTS[i].wa+'?text='+encodeURIComponent(msg);}
 function showErr(id,msg,input){var e=$('#'+id);e.textContent=msg;e.hidden=false;if(input){input.classList.add('bad');}}
 function clearErr(id,input){var e=$('#'+id);if(e){e.hidden=true;e.textContent='';}if(input){input.classList.remove('bad');}}
@@ -412,7 +450,41 @@ function fillRecap(el,rows){
   });
 }
 
-/* Sondage */
+/* ===== ENVOI VERS LA FEUILLE GOOGLE ===== */
+function post(params){
+  var ctl=window.AbortController?new AbortController():null;
+  var timer=setTimeout(function(){if(ctl){ctl.abort();}},20000);
+  var body=new URLSearchParams();
+  Object.keys(params).forEach(function(k){body.append(k,params[k]);});
+  return fetch(ENDPOINT,{method:'POST',body:body,credentials:'omit',signal:ctl?ctl.signal:undefined})
+    .then(function(r){return r.json();})
+    .then(function(j){clearTimeout(timer);return !!(j&&j.ok);})
+    .catch(function(){clearTimeout(timer);return false;});
+}
+/* c : {key, btn, params, msg, onOk} */
+function submitFlow(c){
+  if(busy){return;}
+  busy=true;
+  var label=c.btn.textContent;
+  c.btn.disabled=true;c.btn.textContent='Envoi en cours…';
+  $('#fb-'+c.key).hidden=true;
+  post(c.params).then(function(ok){
+    busy=false;c.btn.disabled=false;c.btn.textContent=label;
+    if(ok){c.onOk();}
+    else{
+      $('#fbwa-'+c.key).href=waUrl(0,c.msg);
+      $('#fbwa-'+c.key+'2').href=waUrl(1,c.msg);
+      var fb=$('#fb-'+c.key);fb.hidden=false;
+      fb.scrollIntoView({block:'nearest'});
+    }
+  });
+}
+function waOptional(key,msg){
+  $('#wa-'+key).href=waUrl(0,msg);
+  $('#wa-'+key+'2').href=waUrl(1,msg);
+}
+
+/* ===== SONDAGE ===== */
 function syncChoices(){$$('.opt').forEach(function(l){var i=$('input',l);l.classList.toggle('sel',i.checked);});}
 function updateSurvey(){
   var d=val('dispo'),v=val('veh');
@@ -456,6 +528,7 @@ function surveyMessage(s){
 
 fs.addEventListener('submit',function(e){
   e.preventDefault();
+  if(busy){return;}
   var d=val('dispo'),v=val('veh'),t=val('type');
   var nom=$('#s-nom'),tel=$('#s-tel'),qt=$('#s-quartier');
   var first=null;
@@ -483,40 +556,82 @@ fs.addEventListener('submit',function(e){
     rows.push(['Départ',s.quartier]);
     rows.push(['Téléphone',s.tel]);
   }
-  $('#d-nom').textContent=s.nom;
-  fillRecap($('#d-recap'),rows);
   var msg=surveyMessage(s);
-  $('#wa-survey').href=waUrl(0,msg);
-  $('#wa-survey2').href=waUrl(1,msg);
-  $('#wa-survey2').textContent='Ou envoyer à '+CONTACTS[1].name+' ('+CONTACTS[1].tel+')';
-  fs.hidden=true;$('#done-survey').hidden=false;
-  var on=$('#o-nom'),ot=$('#o-tel');
-  if(!on.value){on.value=s.nom;}
-  if(!ot.value&&d==='oui'){ot.value=s.tel;}
-  $('#c-survey').scrollIntoView({block:'start'});
+  var params={form:'sondage',nom:s.nom,tel:d==='oui'?s.tel:'',dispo:d==='oui'?'Oui':'Non',
+    veh:d!=='oui'?'':(v==='oui'?'Oui':'Non, cherche une place'),
+    type:(d==='oui'&&v==='oui')?vehLabel(t,s.other):'',
+    places:(d==='oui'&&v==='oui')?String(s.seats):'',
+    carburant:(d==='oui'&&v==='oui')?(fuel==='oui'?'Oui':'Non'):'',
+    quartier:d==='oui'?s.quartier:''};
+  submitFlow({key:'survey',btn:$('#s-send'),params:params,msg:msg,onOk:function(){
+    $('#d-nom').textContent=s.nom;
+    fillRecap($('#d-recap'),rows);
+    waOptional('survey',msg);
+    fs.hidden=true;$('#done-survey').hidden=false;
+    var on=$('#o-nom'),ot=$('#o-tel');
+    if(!on.value){on.value=s.nom;}
+    if(!ot.value&&d==='oui'){ot.value=s.tel;}
+    $('#c-survey').scrollIntoView({block:'start'});
+  }});
 });
 $('#s-edit').addEventListener('click',function(){$('#done-survey').hidden=true;fs.hidden=false;});
 
-/* Précommandes */
-ARTICLES.forEach(function(a){
-  if(a.on){qty[a.id]={};SIZES.forEach(function(z){qty[a.id][z]=0;});sel[a.id]='';}
-});
-function itemCount(id){var n=0;SIZES.forEach(function(z){n+=qty[id][z];});return n;}
+/* ===== STOCK ===== */
+function isOut(a,color,size){
+  for(var i=0;i<stock.length;i++){
+    var r=stock[i];
+    if((!r.article||nm(r.article)===nm(a.name))&&(!r.couleur||nm(r.couleur)===nm(color))&&(!r.taille||nm(r.taille)===nm(size))){return true;}
+  }
+  return false;
+}
+function colorOut(a,color){return SIZES.every(function(z){return isOut(a,color,z);});}
+function loadStock(){
+  var ctl=window.AbortController?new AbortController():null;
+  var timer=setTimeout(function(){if(ctl){ctl.abort();}},8000);
+  fetch(ENDPOINT+'?action=stock',{credentials:'omit',signal:ctl?ctl.signal:undefined})
+    .then(function(r){return r.json();})
+    .then(function(j){
+      clearTimeout(timer);
+      if(j&&j.ok&&Array.isArray(j.stock)){stock=j.stock;}
+      ARTICLES.forEach(function(a){
+        if(!a.on){return;}
+        var s=sel[a.id];
+        if(s.color&&s.color!=='AUTRE'&&colorOut(a,s.color)){s.color='';s.size='';}
+        if(s.color&&s.color!=='AUTRE'&&s.size&&isOut(a,s.color,s.size)){s.size='';}
+      });
+      refreshItems();
+    })
+    .catch(function(){clearTimeout(timer);});
+}
+
+/* ===== PRÉCOMMANDES ===== */
+ARTICLES.forEach(function(a){if(a.on){lines[a.id]={};sel[a.id]={color:'',size:'',other:''};}});
+function curColor(id){
+  var s=sel[id];
+  if(s.color==='AUTRE'){var o=s.other.trim();return o?('Autre : '+o):'';}
+  return s.color;
+}
+function keyOf(c,z){return c+'|'+z;}
+function itemCount(id){var n=0;Object.keys(lines[id]).forEach(function(k){n+=lines[id][k].n;});return n;}
 function totals(){
   var c=0,t=0;
   ARTICLES.forEach(function(a){if(a.on){var n=itemCount(a.id);c+=n;t+=n*a.price;}});
   return {count:c,total:t};
 }
 function summaryText(id){
-  var p=[];
-  SIZES.forEach(function(z){if(qty[id][z]>0){p.push(qty[id][z]+' × '+z);}});
-  return p.join(' · ');
+  return Object.keys(lines[id]).map(function(k){var l=lines[id][k];return l.n+' × '+l.c+' '+l.z;}).join(' · ');
 }
 function renderItems(){
   var h='';
   ARTICLES.forEach(function(a){
     if(a.on){
       h+='<div class="item" data-id="'+a.id+'"><div class="irow"><h3>'+a.name+'</h3><span class="price">'+money(a.price)+'</span></div>';
+      h+='<div class="lab-s">Couleur</div><div class="sws" role="group" aria-label="Couleur : '+a.name+'">';
+      COLORS.forEach(function(c,i){
+        h+='<button type="button" class="sw'+(c.lt?' lt':'')+'" data-c="'+i+'" aria-label="'+c.n+'" title="'+c.n+'" aria-pressed="false" style="--c:'+c.h+'"><span class="chip"></span></button>';
+      });
+      h+='<button type="button" class="sw other" data-c="AUTRE" aria-pressed="false" aria-label="Autre couleur"><span class="chip">Autre</span></button></div>';
+      h+='<input type="text" class="oc" maxlength="40" placeholder="Écris la couleur souhaitée" aria-label="Autre couleur souhaitée" hidden>';
       h+='<div class="lab-s">Taille</div><div class="sizes" role="group" aria-label="Taille : '+a.name+'">';
       SIZES.forEach(function(z){h+='<button type="button" class="size" data-size="'+z+'" aria-pressed="false">'+z+'<i class="cnt" hidden></i></button>';});
       h+='</div><div class="qrow"><span class="hint"></span><div class="stp"><button type="button" class="sb minus" aria-label="Retirer un article : '+a.name+'">−</button><span class="qv" aria-live="polite">0</span><button type="button" class="sb plus" aria-label="Ajouter un article : '+a.name+'">+</button></div></div></div>';
@@ -530,18 +645,37 @@ function renderItems(){
 function refreshItems(){
   ARTICLES.forEach(function(a){
     if(!a.on){return;}
-    var it=$('.item[data-id="'+a.id+'"]'),s=sel[a.id];
+    var it=$('.item[data-id="'+a.id+'"]'),s=sel[a.id],cc=curColor(a.id),auto=s.color==='AUTRE';
     it.classList.remove('need');
+    $$('.sw',it).forEach(function(b){
+      var raw=b.getAttribute('data-c'),isOther=raw==='AUTRE';
+      var name=isOther?'AUTRE':COLORS[+raw].n;
+      var out=!isOther&&colorOut(a,name);
+      var on=s.color===name;
+      b.classList.toggle('sel',on);b.classList.toggle('out',out);
+      b.disabled=out;
+      b.setAttribute('aria-pressed',on?'true':'false');
+      if(!isOther){b.setAttribute('aria-label',name+(out?', épuisé':''));}
+    });
+    var oc=$('.oc',it);
+    oc.hidden=!auto;
+    if(auto&&oc.value!==s.other){oc.value=s.other;}
     $$('.size',it).forEach(function(b){
-      var z=b.getAttribute('data-size'),n=qty[a.id][z],c=$('.cnt',b);
-      b.classList.toggle('sel',z===s);
-      b.setAttribute('aria-pressed',z===s?'true':'false');
+      var z=b.getAttribute('data-size');
+      var out=!!cc&&!auto&&isOut(a,s.color,z);
+      var l=cc?lines[a.id][keyOf(cc,z)]:null,n=l?l.n:0,c=$('.cnt',b);
+      b.classList.toggle('sel',z===s.size);b.classList.toggle('out',out);
+      b.disabled=out;
+      b.setAttribute('aria-pressed',z===s.size?'true':'false');
       c.hidden=n===0;c.textContent=n;
     });
-    $('.qv',it).textContent=s?qty[a.id][s]:0;
+    var cur=(cc&&s.size)?lines[a.id][keyOf(cc,s.size)]:null;
+    $('.qv',it).textContent=cur?cur.n:0;
     var sum=summaryText(a.id);
-    $('.hint',it).textContent=sum?sum:(s?'Taille '+s+' : choisis la quantité':'Choisis d’abord une taille');
-    $('.minus',it).classList.toggle('off',!s||qty[a.id][s]===0);
+    var hint=sum;
+    if(!sum){hint=!s.color?'Choisis d’abord une couleur et une taille':(auto&&!cc?'Écris la couleur souhaitée':(!s.size?'Choisis une taille':cc+' · '+s.size+' : choisis la quantité'));}
+    $('.hint',it).textContent=hint;
+    $('.minus',it).classList.toggle('off',!cur||cur.n===0);
   });
   var t=totals();
   $('#tcount').textContent='Total · '+t.count+' '+plural(t.count,'article','articles');
@@ -549,55 +683,88 @@ function refreshItems(){
 }
 $('#items').addEventListener('click',function(e){
   var b=e.target.closest?e.target.closest('button'):null;
-  if(!b){return;}
+  if(!b||b.disabled){return;}
   var it=b.closest('.item');
   if(!it||it.classList.contains('off')){return;}
-  var id=it.getAttribute('data-id');
-  if(b.classList.contains('size')){sel[id]=b.getAttribute('data-size');}
+  var id=it.getAttribute('data-id'),s=sel[id];
+  if(b.classList.contains('sw')){
+    var raw=b.getAttribute('data-c');
+    s.color=raw==='AUTRE'?'AUTRE':COLORS[+raw].n;
+    if(s.color!=='AUTRE'&&s.size&&isOut(ARTICLES.filter(function(x){return x.id===id;})[0],s.color,s.size)){s.size='';}
+    refreshItems();
+    if(raw==='AUTRE'){var oc=$('.oc',it);if(oc){oc.focus();}}
+    clearErr('e-items');
+    return;
+  }
+  if(b.classList.contains('size')){s.size=b.getAttribute('data-size');}
   else if(b.classList.contains('plus')){
-    if(!sel[id]){it.classList.add('need');return;}
-    if(qty[id][sel[id]]<MAXQ){qty[id][sel[id]]++;}
+    var cc=curColor(id);
+    if(!cc||!s.size){it.classList.add('need');return;}
+    var k=keyOf(cc,s.size),l=lines[id][k];
+    if(!l){l=lines[id][k]={c:cc,z:s.size,n:0};}
+    if(l.n<MAXQ){l.n++;}
   }else if(b.classList.contains('minus')){
-    if(sel[id]&&qty[id][sel[id]]>0){qty[id][sel[id]]--;}
+    var cc2=curColor(id);
+    if(cc2&&s.size){
+      var k2=keyOf(cc2,s.size),l2=lines[id][k2];
+      if(l2&&l2.n>0){l2.n--;if(l2.n===0){delete lines[id][k2];}}
+    }
   }
   clearErr('e-items');
   refreshItems();
+});
+$('#items').addEventListener('input',function(e){
+  var el=e.target;
+  if(el.classList&&el.classList.contains('oc')){
+    var id=el.closest('.item').getAttribute('data-id');
+    sel[id].other=el.value;
+    refreshItems();
+  }
 });
 
 function orderLines(){
   var L=[];
   ARTICLES.forEach(function(a){
     if(!a.on){return;}
-    SIZES.forEach(function(z){var n=qty[a.id][z];if(n>0){L.push({label:a.name+' '+z,n:n,sum:n*a.price});}});
+    Object.keys(lines[a.id]).forEach(function(k){
+      var l=lines[a.id][k];
+      L.push({a:a,label:a.name+' '+l.c+' '+l.z,n:l.n,sum:l.n*a.price,c:l.c,z:l.z});
+    });
   });
   return L;
 }
 var fo=$('#f-order');
 fo.addEventListener('submit',function(e){
   e.preventDefault();
+  if(busy){return;}
   var nom=$('#o-nom'),tel=$('#o-tel'),first=null,t=totals();
   clearErr('e-items');clearErr('e-onom',nom);clearErr('e-otel',tel);
+  var L=orderLines();
   if(t.count===0){showErr('e-items','Ajoute au moins un article.');}
+  else{
+    var gone=L.filter(function(l){return l.c.indexOf('Autre :')!==0&&isOut(l.a,l.c,l.z);});
+    if(gone.length){showErr('e-items','Plus disponible : '+gone.map(function(l){return l.label;}).join(', ')+'. Retire-le ou change de couleur.');return;}
+  }
   if(nom.value.trim().length<2){showErr('e-onom','Indique ton nom.',nom);first=first||nom;}
   if(!phoneOk(tel.value)){showErr('e-otel','Numéro incomplet : il faut 10 chiffres, ex. 081 234 5678.',tel);first=first||tel;}
   if(first){first.scrollIntoView({block:'center'});first.focus();return;}
   if(t.count===0){return;}
-  var nm=nom.value.trim(),tl=phoneShow(tel.value)||tel.value.trim(),lines=orderLines(),rows=[],msg=['*Commande 40 JDT*','Nom : '+nm,'Téléphone : '+tl];
-  lines.forEach(function(l){rows.push([l.n+' × '+l.label,money(l.sum)]);msg.push('- '+l.label+' × '+l.n+' = '+money(l.sum));});
+  var nmv=nom.value.trim(),tl=phoneShow(tel.value)||tel.value.trim(),rows=[],msg=['*Commande 40 JDT*','Nom : '+nmv,'Téléphone : '+tl],recap=[];
+  L.forEach(function(l){rows.push([l.n+' × '+l.label,money(l.sum)]);msg.push('- '+l.label+' × '+l.n+' = '+money(l.sum));recap.push(l.n+' × '+l.label+' ('+money(l.sum)+')');});
   rows.push(['Total à payer à la remise',money(t.total)]);
   msg.push('Total : '+money(t.total)+' (paiement à la remise)');
-  $('#d-onom').textContent=nm;
-  fillRecap($('#d-orecap'),rows);
   var text=msg.join('\n');
-  $('#wa-order').href=waUrl(0,text);
-  $('#wa-order2').href=waUrl(1,text);
-  $('#wa-order2').textContent='Ou envoyer à '+CONTACTS[1].name+' ('+CONTACTS[1].tel+')';
-  fo.hidden=true;$('#done-order').hidden=false;
-  $('#c-order').scrollIntoView({block:'start'});
+  submitFlow({key:'order',btn:$('#o-send'),params:{form:'commande',nom:nmv,tel:tl,recap:recap.join(' ; '),total:String(t.total),statut:'Nouvelle'},msg:text,onOk:function(){
+    $('#d-onom').textContent=nmv;
+    fillRecap($('#d-orecap'),rows);
+    waOptional('order',text);
+    fo.hidden=true;$('#done-order').hidden=false;
+    $('#c-order').scrollIntoView({block:'start'});
+  }});
 });
 $('#o-edit').addEventListener('click',function(){$('#done-order').hidden=true;fo.hidden=false;});
 
-/* Placardage des affiches */
+/* ===== PLACARDAGE DES AFFICHES ===== */
 var fp=$('#f-poster');
 fp.addEventListener('change',function(e){
   if(e.target.name==='pdispo'){
@@ -608,24 +775,25 @@ fp.addEventListener('change',function(e){
 });
 fp.addEventListener('submit',function(e){
   e.preventDefault();
+  if(busy){return;}
   var d=val('pdispo'),nom=$('#p-nom'),tel=$('#p-tel'),zone=$('#p-zone'),first=null;
   clearErr('e-pdispo');clearErr('e-pnom',nom);clearErr('e-ptel',tel);
   if(!d){showErr('e-pdispo','Choisis Oui ou Non.');$('#g-pdispo').scrollIntoView({block:'center'});return;}
   if(nom.value.trim().length<2){showErr('e-pnom','Indique ton nom.',nom);first=nom;}
   if(d==='oui'&&!phoneOk(tel.value)){showErr('e-ptel','Numéro incomplet : il faut 10 chiffres, ex. 081 234 5678.',tel);first=first||tel;}
   if(first){first.scrollIntoView({block:'center'});first.focus();return;}
-  var nm=nom.value.trim(),tl=phoneShow(tel.value)||tel.value.trim(),z=zone.value.trim();
+  var nmv=nom.value.trim(),tl=phoneShow(tel.value)||tel.value.trim(),z=zone.value.trim();
   var rows=[['Placardage samedi 14/11',d==='oui'?'Oui':'Non']];
-  var msg=['*Placardage des affiches 14/11 à 14h*','Nom : '+nm,'Disponible : '+(d==='oui'?'Oui':'Non')];
+  var msg=['*Placardage des affiches 14/11 à 14h*','Nom : '+nmv,'Disponible : '+(d==='oui'?'Oui':'Non')];
   if(d==='oui'){rows.push(['Téléphone',tl]);msg.push('Téléphone : '+tl);if(z){rows.push(['Zone',z]);msg.push('Zone : '+z);}}
-  $('#d-pnom').textContent=nm;
-  fillRecap($('#d-precap'),rows);
   var text=msg.join('\n');
-  $('#wa-poster').href=waUrl(0,text);
-  $('#wa-poster2').href=waUrl(1,text);
-  $('#wa-poster2').textContent='Ou envoyer à '+CONTACTS[1].name+' ('+CONTACTS[1].tel+')';
-  fp.hidden=true;$('#done-poster').hidden=false;
-  $('#c-poster').scrollIntoView({block:'start'});
+  submitFlow({key:'poster',btn:$('#p-send'),params:{form:'placardage',nom:nmv,dispo:d==='oui'?'Oui':'Non',tel:d==='oui'?tl:'',zone:d==='oui'?z:''},msg:text,onOk:function(){
+    $('#d-pnom').textContent=nmv;
+    fillRecap($('#d-precap'),rows);
+    waOptional('poster',text);
+    fp.hidden=true;$('#done-poster').hidden=false;
+    $('#c-poster').scrollIntoView({block:'start'});
+  }});
 });
 $('#p-edit').addEventListener('click',function(){$('#done-poster').hidden=true;fp.hidden=false;});
 
@@ -652,6 +820,7 @@ $$('[data-copy]').forEach(function(b){
 renderSeats();
 renderItems();
 updateSurvey();
+loadStock();
 })();
 </script>
 
