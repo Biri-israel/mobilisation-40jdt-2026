@@ -280,7 +280,8 @@ h3{font-size:17px;font-weight:800}
     </div>
 
     <fieldset class="grp" id="blk-fuel" hidden>
-      <legend>Souhaites-tu que l'église mette le carburant dans ton véhicule pour le carnaval ?</legend>
+      <legend>Le coût du carburant est-il actuellement une difficulté pour toi ?</legend>
+      <div class="sub">Ta réponse nous aide à voir comment soutenir ceux qui en ont besoin.</div>
       <div class="two">
         <label class="opt"><input type="radio" name="fuel" value="oui" id="fuel-oui"><span class="mk" aria-hidden="true"></span><span>Oui</span></label>
         <label class="opt"><input type="radio" name="fuel" value="non" id="fuel-non"><span class="mk" aria-hidden="true"></span><span>Non</span></label>
@@ -518,7 +519,7 @@ fs.addEventListener('change',function(e){
 function surveyMessage(s){
   var L=['*Sondage carnaval 15/11*','Nom : '+s.nom,'Disponible dimanche : '+(s.dispo==='oui'?'Oui':'Non')];
   if(s.dispo==='oui'){
-    if(s.veh==='oui'){L.push('Véhicule : '+vehLabel(s.type,s.other)+', '+s.seats+' '+plural(s.seats,'place libre','places libres'));L.push('Carburant par l’église : '+(s.fuel==='oui'?'Oui':'Non'));}
+    if(s.veh==='oui'){L.push('Véhicule : '+vehLabel(s.type,s.other)+', '+s.seats+' '+plural(s.seats,'place libre','places libres'));L.push('Difficulté carburant : '+(s.fuel==='oui'?'Oui':'Non'));}
     else{L.push('Véhicule : non, je cherche une place');}
     L.push('Téléphone : '+s.tel);
   }
@@ -540,7 +541,7 @@ fs.addEventListener('submit',function(e){
     if(d==='oui'&&!v){showErr('e-veh','Dis-nous si tu viens avec un véhicule.');first=first||$('#blk-veh');}
     if(d==='oui'&&v==='oui'&&!t){showErr('e-type','Choisis le type de véhicule.');first=first||$('#blk-type');}
     if(d==='oui'&&v==='oui'&&t==='autre'&&oth.value.trim().length<2){showErr('e-typeother','Précise ton type de véhicule.',oth);first=first||oth;}
-    if(d==='oui'&&v==='oui'&&!fuel){showErr('e-fuel','Dis-nous si tu souhaites que l’église mette le carburant.');first=first||$('#blk-fuel');}
+    if(d==='oui'&&v==='oui'&&!fuel){showErr('e-fuel','Dis-nous si le coût du carburant est une difficulté pour toi.');first=first||$('#blk-fuel');}
     if(nom.value.trim().length<2){showErr('e-nom','Indique ton nom.',nom);first=first||nom;}
     if(d==='oui'&&!phoneOk(tel.value)){showErr('e-tel','Numéro incomplet : il faut 10 chiffres, ex. 081 234 5678.',tel);first=first||tel;}
   }
@@ -550,7 +551,7 @@ fs.addEventListener('submit',function(e){
   var rows=[['Disponible dimanche',d==='oui'?'Oui':'Non']];
   if(d==='oui'){
     rows.push(['Véhicule',v==='oui'?vehLabel(t,s.other):'Je cherche une place']);
-    if(v==='oui'){rows.push(['Places libres',String(s.seats)]);rows.push(['Carburant par l’église',fuel==='oui'?'Oui':'Non']);}
+    if(v==='oui'){rows.push(['Places libres',String(s.seats)]);rows.push(['Difficulté carburant',fuel==='oui'?'Oui':'Non']);}
     rows.push(['Téléphone',s.tel]);
   }
   var msg=surveyMessage(s);
