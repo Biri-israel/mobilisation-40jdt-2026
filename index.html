@@ -1,3 +1,9 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8F1328">
 <title>Carnaval 40 JDT</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,17 +21,7 @@
   --bar:#560A16;--note:rgba(255,212,59,.13);--recap:rgba(0,0,0,.2);
   color-scheme:dark;
 }
-@media (prefers-color-scheme:light){
-  :root:not([data-theme="dark"]){
-    --page:#EADBD7;--col:#F6EEEA;--card:#FFFFFF;--edge:#DCC3CA;
-    --text:#3D0612;--soft:#6E434E;--label:#6E434E;--price:#7A0F22;
-    --field-ph:#9A7A83;--field-edge:#C79BA8;
-    --choice-edge:#C79BA8;--step:#F0E2E2;--step-text:#3D0612;--step-off:#C9AAB1;
-    --bar:#FFFFFF;--note:rgba(247,147,30,.16);--recap:#F6EEEA;
-    color-scheme:light;
-  }
-}
-:root[data-theme="light"]{
+:root{
   --page:#EADBD7;--col:#F6EEEA;--card:#FFFFFF;--edge:#DCC3CA;
   --text:#3D0612;--soft:#6E434E;--label:#6E434E;--price:#7A0F22;
   --field-ph:#9A7A83;--field-edge:#C79BA8;
@@ -33,11 +29,12 @@
   --bar:#FFFFFF;--note:rgba(247,147,30,.16);--recap:#F6EEEA;
   color-scheme:light;
 }
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--page);color:var(--text);font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5}
+body{margin:0;background:var(--page);color:var(--text);font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
 h1,h2,h3,p{margin:0}
 button,input{font:inherit;color:inherit}
-.col{max-width:520px;margin:0 auto;background:var(--col);box-shadow:0 0 40px rgba(0,0,0,.35)}
+.col{width:100%;max-width:560px;margin:0 auto;background:var(--col);box-shadow:0 0 40px rgba(0,0,0,.35)}
 .in{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
 .hero{position:relative;overflow:hidden;color:#fff;padding:18px 0 26px;background:radial-gradient(circle at 62% 42%,transparent 0 150px,rgba(255,255,255,.07) 151px 152px,transparent 153px 235px,rgba(255,255,255,.06) 236px 237px,transparent 238px),linear-gradient(180deg,var(--hero-a),var(--hero-b))}
@@ -192,13 +189,15 @@ h3{font-size:17px;font-weight:800}
 .poster .dl{margin-top:10px}
 </style>
 
+</head>
+<body>
 <div class="col">
 <header class="hero">
   <svg class="flame" viewBox="0 0 170 300" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0C70 0 150 90 150 170C150 230 110 280 40 300C100 250 110 160 70 100C45 60 20 30 0 0Z" fill="#E8832A"/><path d="M0 110C50 140 90 190 75 250C70 275 55 290 30 300C60 240 45 180 0 150Z" fill="#E8B53A"/></svg>
   <div class="in">
     <div class="top">
       <div class="org"><b>ECC · PPISG</b>Paroisse Protestante des Instituts Supérieurs de la Gombe</div>
-      <button type="button" class="pill" id="themeBtn">Thème clair</button>
+      
     </div>
     <h1 class="mark"><span class="n40">40</span><span class="jours">JOURS</span><span class="devant">devant</span><span class="trone">LE TRÔNE</span></h1>
     <div class="theme">
@@ -412,23 +411,6 @@ function fillRecap(el,rows){
     d.appendChild(a);d.appendChild(b);el.appendChild(d);
   });
 }
-
-/* Thème clair / sombre */
-var root=document.documentElement,tbtn=$('#themeBtn');
-function isDark(){
-  var t=root.getAttribute('data-theme');
-  if(t){return t==='dark';}
-  return !(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches);
-}
-function themeLabel(){tbtn.textContent=isDark()?'Thème clair':'Thème sombre';}
-try{var saved=localStorage.getItem('jdt-theme');if(saved==='light'||saved==='dark'){root.setAttribute('data-theme',saved);}}catch(x){}
-themeLabel();
-tbtn.addEventListener('click',function(){
-  var n=isDark()?'light':'dark';
-  root.setAttribute('data-theme',n);
-  try{localStorage.setItem('jdt-theme',n);}catch(x){}
-  themeLabel();
-});
 
 /* Sondage */
 function syncChoices(){$$('.opt').forEach(function(l){var i=$('input',l);l.classList.toggle('sel',i.checked);});}
@@ -672,3 +654,6 @@ renderItems();
 updateSurvey();
 })();
 </script>
+
+</body>
+</html>
